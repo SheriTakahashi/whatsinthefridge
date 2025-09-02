@@ -1,0 +1,19 @@
+.expiration-area {
+  border: none;
+  width: 400px;
+  min-height: 200px;
+  padding: 8px;
+  margin: 8px;
+  border-radius: 8px;
+  background-color: #ffc0cb;
+}
+
+.list-row {
+  display: flex;
+  align-items: center;
+  background-color: white;
+}
+
+.expiration-item {
+  margin: 6px;
+}
