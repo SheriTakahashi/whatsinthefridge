@@ -6,34 +6,64 @@ import ItemCards from "../components/ItemCards";
 import ExpirationArea from "../components/ExpirationArea";
 import Recipe from "../components/Recipe";
 import ShoppingList from "../components/ShoppingList";
+import InputShopping from "../components/InputShopping";
 import AddButton from "../components/AddButton";
 
 export default function Page() {
-  const [expirations, setExpirations] = useState<string>([]);
+  const [expirations, setExpirations] = useState<string[]>([]);
+  const [shopping, setShopping] = useState<string[]>([]);
+  const [newText, setNewText] = useState("");
 
-  //xボタンを押した時の処理
-  const onClickDelete = (index: number) => {
-    // とりあえず仮データを追加
-    const itemCard = [...expirations, "牛乳 9/2"];
+  //====消費期限リスト====
+  const onClickDeleteExpiration = (index: number) => {
+    const itemCard = [...expirations];
     //特定の配列の中から何番目の要素を何個削除する
     itemCard.splice(index, 1);
     setExpirations(itemCard);
   };
 
   // +ボタン押したときの処理
-  const onClickAdd = () => {
+  const onClickAddExpiration = () => {
     // とりあえず仮データを追加
     setExpirations([...expirations, "新しい食材"]);
+  };
+
+  // ====買い物リスト====
+  //入力欄に文字が入った時の処理
+  const onChangeNewText = (event: React.ChangeEvent<HTMLInputElement>) =>
+    setNewText(event.target.value);
+
+  //追加ボタンを押した時の処理
+  const onClickAddshopping = () => {
+    if (newText === "") return; //入力欄に何も入ってない時は追加ボタンは反応しない
+    setShopping([...shopping, newText]); //更新する
+    setNewText(""); //追加後空文字にする
+  };
+
+  //xボタンを押した時の処理
+  const onClickDeleteShopping = (index: number) => {
+    const list = [...shopping];
+    list.splice(index, 1);
+    setShopping(list);
   };
 
   return (
     <div>
       <Header />
       <ItemCards />
-      <AddButton onClickAdd={onClickAdd} />
-      <ExpirationArea expirations={expirations} onClickDelete={onClickDelete} />
+      <AddButton onClickAdd={onClickAddExpiration} />
+      <ExpirationArea
+        expirations={expirations}
+        onClickDelete={onClickDeleteExpiration}
+      />
       <Recipe />
-      <ShoppingList />
+      <InputShopping
+        newText={newText}
+        onChange={onChangeNewText}
+        onClick={onClickAddshopping}
+        disabled={false}
+      />
+      <ShoppingList shopping={shopping} onClickDelete={onClickDeleteShopping} />
     </div>
   );
 }
