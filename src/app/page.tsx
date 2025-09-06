@@ -48,10 +48,9 @@ export default function Page() {
   };
 
   return (
-    <div>
+    <div className="flex flex-col items-center">
       <Header />
-      <ItemCards />
-      <AddButton onClickAdd={onClickAddExpiration} />
+      <ItemCards onClickAdd={onClickAddExpiration} />
       <ExpirationArea
         expirations={expirations}
         onClickDelete={onClickDeleteExpiration}

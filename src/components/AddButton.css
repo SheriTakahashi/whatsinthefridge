@@ -1,13 +1,19 @@
-button {
-  border-radius: 10px;
-  border: none;
-  padding: 4px 16px;
-  margin: 0px 2px;
-  background-color: #1e90ff;
-  color: white;
+.add-button {
+  border-radius: 8px;
+  background-color: white;
+  padding: 8px;
+  text-align: center;
+  color: #4169e1;
+  font-size: 40px;
+  width: 95px;
+  height: 110px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0.12);
 }
 
-button:hover {
+.add-button:hover {
   background-color: #87cefa;
   color: white;
   cursor: pointer;

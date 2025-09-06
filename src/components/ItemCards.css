@@ -1,0 +1,28 @@
+.itemCard {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin-top: 8px;
+  padding-left: 0;
+  list-style: none;
+}
+
+.item-container {
+  border-radius: 8px;
+  background-color: white;
+  padding: 8px;
+  text-align: center;
+}
+
+.icon {
+  font-size: 30px;
+  display: block;
+}
+.name {
+  font-size: 20px;
+  color: black;
+}
+.expirationDate {
+  font-size: 16px;
+  color: black;
+}

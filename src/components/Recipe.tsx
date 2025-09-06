@@ -9,12 +9,14 @@ const Recipe = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        // 適当なAPI（チキン料理を検索する例）
+        const appId = process.env.NEXT_PUBLIC_RAKUTEN_APP_ID;
         const res = await fetch(
-          "https://www.themealdb.com/api/json/v1/1/search.php?s=chicken"
+          `https://app.rakuten.co.jp/services/api/Recipe/CategoryList/20170426?format=json&categoryType=large&applicationId=${appId}`
         );
+
         const data = await res.json();
-        setRecipes(data.meals || []);
+        console.log("APIレスポンス:", data);
+        setRecipes(data.result || []);
       } catch (error) {
         console.error("レシピ取得失敗:", error);
       } finally {
@@ -34,12 +36,12 @@ const Recipe = () => {
       <h1 className="recommend">おすすめのレシピ</h1>
       <ul>
         {recipes.map((recipe) => (
-          <li key={recipe.idMeal}>
+          <li key={recipe.recipeId}>
             <div className="list-row">
-              <p className="recipe-name">{recipe.strMeal}</p>
+              <p className="recipe-name">{recipe.recipeTitle}</p>
               <img
-                src={recipe.strMealThumb}
-                alt={recipe.strMeal}
+                src={recipe.foodImageUrl}
+                alt={recipe.recipeTitle}
                 width={100}
                 style={{ borderRadius: "8px" }}
               />
