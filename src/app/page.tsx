@@ -7,7 +7,6 @@ import ExpirationArea from "../components/ExpirationArea";
 import Recipe from "../components/Recipe";
 import ShoppingList from "../components/ShoppingList";
 import InputShopping from "../components/InputShopping";
-import AddButton from "../components/AddButton";
 
 export default function Page() {
   const [expirations, setExpirations] = useState<string[]>([]);

@@ -3,6 +3,7 @@ import React from "react";
 const InputShopping = ({ newText, onChange, onClick, disabled }) => {
   return (
     <div className="input-area">
+      <h1 className="shopping">買い物リスト</h1>
       {/*disabledは特定の条件で制御できる*/}
       <input
         disabled={disabled}

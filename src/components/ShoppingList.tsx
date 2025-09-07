@@ -3,7 +3,6 @@ import React from "react";
 const ShoppingList = ({ shopping, onClickDelete }) => {
   return (
     <div className="recipe-container">
-      <h1 className="shopping">買い物リスト</h1>
       <ul>
         {shopping.map((item, index) => (
           <li key={index}>
