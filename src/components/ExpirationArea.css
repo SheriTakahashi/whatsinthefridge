@@ -1,19 +1,14 @@
 .expiration-area {
   border: none;
-  width: 400px;
-  min-height: 200px;
+  width: 530px;
+  height: auto;
   padding: 8px;
   margin: 8px;
   border-radius: 8px;
   background-color: #ffc0cb;
 }
 
-.list-row {
-  display: flex;
-  align-items: center;
-  background-color: white;
-}
-
-.expiration-item {
-  margin: 6px;
+.expiration-list {
+  flex: 1; /*伸び縮みして残りのスペースを埋める*/
+  word-break: break-word; /* 長い文字でも折り返し */
 }

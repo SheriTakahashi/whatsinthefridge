@@ -1,4 +1,5 @@
 import React from "react";
+import "./ExpirationArea.css";
 
 const ExpirationArea = ({ expirations, onClickDelete }) => {
   return (

@@ -1,11 +1,19 @@
 import React from "react";
+import "./Header.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faReceipt } from "@fortawesome/free-solid-svg-icons";
 
 const Header = () => {
   return (
-    <div>
-      <h1>冷蔵庫管理</h1>
-      <button className="receipt">レシートを読み取る</button>
-    </div>
+    <header className="header">
+      <div className="header-inner">
+        <h1 className="title">冷蔵庫管理アプリ</h1>
+        <button className="receipt">
+          <FontAwesomeIcon icon={faReceipt} style={{ color: "#ffffff" }} />
+          レシートを読み取る
+        </button>
+      </div>
+    </header>
   );
 };
 

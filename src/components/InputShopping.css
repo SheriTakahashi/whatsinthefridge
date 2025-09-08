@@ -1,3 +1,11 @@
-input {
-  background-color: white;
+.input-area input {
+  border: 1px solid #d1d5db;
+  border-radius: 6px;
+  padding: 8px 12px;
+  margin-right: 30px;
+}
+
+.input-area input:focus {
+  outline: none;
+  border-color: #4169e1;
 }

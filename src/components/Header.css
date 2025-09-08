@@ -1,5 +1,30 @@
 button {
+  padding: 10px;
   border-radius: 10px;
   background-color: #1e90ff;
   color: white;
+}
+
+.receipt {
+  margin-right: 50px;
+}
+
+.title {
+  font-weight: bold;
+  font-size: 26px;
+}
+
+.header {
+  background-color: white;
+  width: 100%;
+}
+
+.header-inner {
+  height: 80px;
+  max-width: 700px;
+  margin: 0 auto;
+  padding: 12px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

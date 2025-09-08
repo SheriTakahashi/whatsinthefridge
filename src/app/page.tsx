@@ -6,7 +6,6 @@ import ItemCards from "../components/ItemCards";
 import ExpirationArea from "../components/ExpirationArea";
 import Recipe from "../components/Recipe";
 import ShoppingList from "../components/ShoppingList";
-import InputShopping from "../components/InputShopping";
 
 export default function Page() {
   const [expirations, setExpirations] = useState<string[]>([]);
@@ -33,7 +32,7 @@ export default function Page() {
     setNewText(event.target.value);
 
   //追加ボタンを押した時の処理
-  const onClickAddshopping = () => {
+  const onClickAddShopping = () => {
     if (newText === "") return; //入力欄に何も入ってない時は追加ボタンは反応しない
     setShopping([...shopping, newText]); //更新する
     setNewText(""); //追加後空文字にする
@@ -55,13 +54,14 @@ export default function Page() {
         onClickDelete={onClickDeleteExpiration}
       />
       <Recipe />
-      <InputShopping
+      <ShoppingList
+        shopping={shopping}
+        onClickDelete={onClickDeleteShopping}
         newText={newText}
-        onChange={onChangeNewText}
-        onClick={onClickAddshopping}
-        disabled={false}
+        onChangeNewText={onChangeNewText}
+        onClickAddShopping={onClickAddShopping}
+        disabled={newText === ""}
       />
-      <ShoppingList shopping={shopping} onClickDelete={onClickDeleteShopping} />
     </div>
   );
 }
