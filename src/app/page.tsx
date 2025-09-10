@@ -8,58 +8,62 @@ import Recipe from "../components/Recipe";
 import ShoppingList from "../components/ShoppingList";
 
 export default function Page() {
-  const [expirations, setExpirations] = useState<string[]>([]);
+  const [items, setItems] = useState<string[]>([]);
   const [shopping, setShopping] = useState<string[]>([]);
   const [newText, setNewText] = useState("");
 
-  //====消費期限リスト====
-  const onClickDeleteExpiration = (index: number) => {
-    const itemCard = [...expirations];
-    //特定の配列の中から何番目の要素を何個削除する
-    itemCard.splice(index, 1);
-    setExpirations(itemCard);
+  //====冷蔵庫内====
+  // +ボタンで庫内に食材追加
+  const onClickAddItem = () => {
+    setItems([...items, "新しい食材"]);
   };
 
-  // +ボタン押したときの処理
-  const onClickAddExpiration = () => {
-    // とりあえず仮データを追加
-    setExpirations([...expirations, "新しい食材"]);
+  // xボタンで庫内の食材削除
+  const onClickDeleteItem = (index: number) => {
+    const updated = [...items];
+    updated.splice(index, 1);
+    setItems(updated);
+  };
+
+  //====消費期限リスト====
+  const onClickDeleteExpiration = (index: number) => {
+    const itemCard = [...items];
+    itemCard.splice(index, 1);
+    setItems(itemCard);
   };
 
   // ====買い物リスト====
-  //入力欄に文字が入った時の処理
   const onChangeNewText = (event: React.ChangeEvent<HTMLInputElement>) =>
     setNewText(event.target.value);
 
-  //追加ボタンを押した時の処理
   const onClickAddShopping = () => {
-    if (newText === "") return; //入力欄に何も入ってない時は追加ボタンは反応しない
-    setShopping([...shopping, newText]); //更新する
-    setNewText(""); //追加後空文字にする
+    if (newText === "") return;
+    setShopping([...shopping, newText]);
+    setNewText("");
   };
 
-  //xボタンを押した時の処理
   const onClickDeleteShopping = (index: number) => {
-    const list = [...shopping];
-    list.splice(index, 1);
-    setShopping(list);
+    const updated = [...shopping];
+    updated.splice(index, 1);
+    setShopping(updated);
   };
 
   return (
     <div className="flex flex-col items-center">
       <Header />
-      <ItemCards onClickAdd={onClickAddExpiration} />
-      <ExpirationArea
-        expirations={expirations}
-        onClickDelete={onClickDeleteExpiration}
+      <ItemCards
+        items={items}
+        onClickAdd={onClickAddItem}
+        onClickDeleteItem={onClickDeleteItem}
       />
+      <ExpirationArea />
       <Recipe />
       <ShoppingList
         shopping={shopping}
-        onClickDelete={onClickDeleteShopping}
         newText={newText}
         onChangeNewText={onChangeNewText}
         onClickAddShopping={onClickAddShopping}
+        onClickDeleteShopping={onClickDeleteShopping}
         disabled={newText === ""}
       />
     </div>

@@ -18,3 +18,8 @@ body {
   font-family: Arial, Helvetica, sans-serif;
   background-color: #eff7ff;
 }
+
+h1 {
+  font-weight: bold;
+  font-size: 18px;
+}

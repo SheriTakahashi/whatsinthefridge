@@ -1,13 +1,14 @@
 import React from "react";
 import "./ShoppingList.css";
 import InputShopping from "./InputShopping";
+import DeleteButton from "./DeleteButton";
 
 const ShoppingList = ({
   shopping,
-  onClickDelete,
   newText,
   onChangeNewText,
   onClickAddShopping,
+  onClickDeleteShopping,
 }) => {
   return (
     <div>
@@ -25,12 +26,9 @@ const ShoppingList = ({
               <li key={index}>
                 <div className="list-row">
                   <p className="shopping-list">{item}</p>
-                  <button
-                    className="delete-botton"
-                    onClick={() => onClickDelete(index)}
-                  >
-                    ×
-                  </button>
+                  <DeleteButton
+                    onClickDelete={() => onClickDeleteShopping(index)}
+                  />
                 </div>
               </li>
             ))}

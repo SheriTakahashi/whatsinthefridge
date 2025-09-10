@@ -1,13 +1,14 @@
 import React from "react";
-import items from "../data/items.json";
 import AddButton from "./AddButton";
+import ItemCardEdit from "./ItemCardEdit";
 import "./ItemCards.css";
 
 type Props = {
+  items: string[];
   onClickAdd: () => void;
+  onClickDeleteItem: (index: number) => void;
 };
 
-// 消費期限を yyyy/mm/dd 形式にする
 const formatDate = (date: Date) => {
   const y = date.getFullYear();
   const m = String(date.getMonth() + 1).padStart(2, "0");
@@ -15,27 +16,28 @@ const formatDate = (date: Date) => {
   return `${y}/${m}/${d}`;
 };
 
-const ItemCards = ({ onClickAdd }: Props) => {
+const ItemCards = ({ items, onClickAdd, onClickDeleteItem }: Props) => {
   const today = new Date();
 
   return (
     <div>
       <h1>冷蔵庫</h1>
       <div className="itemCard">
-        {items.map((item, i) => {
-          const expirationDate = new Date(today);
-          expirationDate.setDate(today.getDate() + item.expiresInDays);
+        {items.map((item, i) => (
+          <div key={`item-${i}`} className="item-container">
+            <span className="icon">🥕</span>
+            <p className="name">{item}</p>
+            <p className="expirationDate">{formatDate(today)}</p>
 
-          return (
-            <div key={i} className="item-container">
-              <span className="icon">{item.emoji}</span>
-              <p className="name">{item.name}</p>
-              <p className="expirationDate">{formatDate(expirationDate)}</p>
-            </div>
-          );
-        })}
+            {/* hoverで表示する編集・削除ボタン */}
+            <ItemCardEdit
+              onClickEdit={() => console.log("編集:", item)}
+              onClickDelete={() => onClickDeleteItem(i)}
+            />
+          </div>
+        ))}
 
-        {/* グリッドの最後に＋ボタンを置く */}
+        {/* +ボタン */}
         <AddButton onClickAdd={onClickAdd} />
       </div>
     </div>

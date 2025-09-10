@@ -11,7 +11,7 @@ const InputShopping = ({ newText, onChange, onClick, disabled }) => {
         value={newText}
         onChange={onChange}
       />
-      <button disabled={disabled} onClick={onClick}>
+      <button className="shopping-add" disabled={disabled} onClick={onClick}>
         追加
       </button>
     </div>

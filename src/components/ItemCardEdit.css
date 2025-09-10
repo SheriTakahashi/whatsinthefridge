@@ -1,0 +1,18 @@
+/* デフォルトは非表示 */
+.edit-container {
+  display: none;
+  position: absolute;
+  top: 8px;
+  gap: 6px;
+  background-color: #bcddff;
+  color: #4169e1;
+  padding: 32px 11px 8px 11px;
+}
+
+/* hoverしたら表示 */
+.item-container:hover .edit-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}

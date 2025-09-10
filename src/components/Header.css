@@ -1,12 +1,9 @@
-button {
+.receipt {
+  margin-right: 50px;
   padding: 10px;
   border-radius: 10px;
   background-color: #1e90ff;
   color: white;
-}
-
-.receipt {
-  margin-right: 50px;
 }
 
 .title {
