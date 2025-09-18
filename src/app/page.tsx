@@ -18,6 +18,7 @@ export default function Page() {
   //====冷蔵庫内====
   //モーダル管理
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
   const categories = [
     "野菜",
@@ -29,13 +30,31 @@ export default function Page() {
     "お惣菜",
   ];
 
-  //＋を押したらモーダルが開く
-  const handleOpenModal = () => setIsModalOpen(true);
+  //＋ボタン押下でモーダルが開く
+  const onClickOpenModal = () => {
+    setEditingIndex(null); // 新規追加なので編集対象なし
+    setIsModalOpen(true);
+  };
 
-  //モーダルの追加ボタンで食材を追加
-  const handleConfirmAdd = (name: string, expiration: string) => {
-    setItems([...items, { name, expiration }]);
+  //編集ボタン押下でモーダルが開く
+  const onClickEditItem = (index: number) => {
+    setEditingIndex(index);
+    setIsModalOpen(true);
+  };
+
+  // モーダルの「追加 / 更新」確定処理
+  const onClickConfirmModal = (name: string, expiration: string) => {
+    if (editingIndex !== null) {
+      // 更新ボタン押下で既存カードを更新
+      const updated = [...items];
+      updated[editingIndex] = { name, expiration };
+      setItems(updated);
+    } else {
+      // 追加ボタン押下で新しいカードを追加
+      setItems([...items, { name, expiration }]);
+    }
     setIsModalOpen(false);
+    setEditingIndex(null);
   };
 
   // xボタンで庫内の食材削除
@@ -73,19 +92,19 @@ export default function Page() {
       <Header />
       <ItemCards
         items={items}
-        onClickAdd={() => setIsModalOpen(true)}
-        onClickDeleteItem={(i) => {
-          const updated = [...items];
-          updated.splice(i, 1);
-          setItems(updated);
-        }}
+        onClickAdd={onClickOpenModal}
         onClickDeleteItem={onClickDeleteItem}
+        onClickEditItem={onClickEditItem}
       />
       <AddItemModal
         categories={categories}
         isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onConfirm={handleConfirmAdd}
+        onClose={() => {
+          setIsModalOpen(false);
+          setEditingIndex(null);
+        }}
+        onAdd={onClickConfirmModal}
+        editingItem={editingIndex !== null ? items[editingIndex] : null}
       />
       <ExpirationArea />
       <Recipe />

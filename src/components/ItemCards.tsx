@@ -3,22 +3,21 @@ import AddButton from "./AddButton";
 import ItemCardEdit from "./ItemCardEdit";
 import "./ItemCards.css";
 
+type Item = { name: string; expiration: string };
+
 type Props = {
-  items: string[];
+  items: Item[];
   onClickAdd: () => void;
   onClickDeleteItem: (index: number) => void;
+  onClickEditItem: (index: number) => void;
 };
 
-const formatDate = (date: Date) => {
-  const y = date.getFullYear();
-  const m = String(date.getMonth() + 1).padStart(2, "0");
-  const d = String(date.getDate()).padStart(2, "0");
-  return `${y}/${m}/${d}`;
-};
-
-const ItemCards = ({ items, onClickAdd, onClickDeleteItem }: Props) => {
-  const today = new Date();
-
+const ItemCards = ({
+  items,
+  onClickAdd,
+  onClickDeleteItem,
+  onClickEditItem,
+}: Props) => {
   return (
     <div>
       <h1>冷蔵庫</h1>
@@ -26,12 +25,12 @@ const ItemCards = ({ items, onClickAdd, onClickDeleteItem }: Props) => {
         {items.map((item, i) => (
           <div key={`item-${i}`} className="item-container">
             <span className="icon">🥕</span>
-            <p className="name">{item}</p>
-            <p className="expirationDate">{formatDate(today)}</p>
+            <p className="name">{item.name}</p>
+            <p className="expirationDate">{item.expiration}</p>
 
             {/* hoverで表示する編集・削除ボタン */}
             <ItemCardEdit
-              onClickEdit={() => console.log("編集:", item)}
+              onClickEdit={() => onClickEditItem(i)}
               onClickDelete={() => onClickDeleteItem(i)}
             />
           </div>

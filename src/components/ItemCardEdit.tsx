@@ -10,7 +10,7 @@ const ItemCardEdit = ({ onClickDelete, onClickEdit }: Props) => {
   return (
     <div className="edit-container">
       <button className="edit-button" onClick={onClickEdit}>
-        日付の編集
+        編集
       </button>
       <button className="delete-button" onClick={onClickDelete}>
         ×

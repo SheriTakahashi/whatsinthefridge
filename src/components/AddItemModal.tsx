@@ -5,22 +5,17 @@ type Props = {
   categories: string[];
   isOpen: boolean;
   onClose: () => void;
-  onConfirm: (name: string, expiration: string) => void;
+  onAdd: (name: string, expiration: string) => void;
 };
 
-const AddItemModal = ({ categories, isOpen, onClose, onConfirm }: Props) => {
+const AddItemModal = ({ categories, isOpen, onClose, onAdd }: Props) => {
   const [selectedCategory, setSelectedCategory] = useState("野菜");
   const [expirationDate, setExpirationDate] = useState("");
 
-  const formatDate = (dateString: string) => {
-    if (!dateString) return "";
-    const [y, m, d] = dateString.split("-");
-    return `${y}/${m}/${d}`;
-  };
-
-  const handleConfirm = () => {
-    if (!selectedCategory || !expirationDate) return;
-    onConfirm(selectedCategory, formatDate(expirationDate));
+  //＋ボタンと編集ボタンを押したかの判断
+  const onClickAddModal = () => {
+    if (!expirationDate) return; //日付が空白なら追加できない
+    onAdd(selectedCategory, expirationDate);
     setSelectedCategory("野菜");
     setExpirationDate("");
   };
@@ -30,7 +25,7 @@ const AddItemModal = ({ categories, isOpen, onClose, onConfirm }: Props) => {
   return (
     <div className="modal">
       <div className="modal-content">
-        <h2>食材を追加</h2>
+        <h1>食材を追加</h1>
 
         <label>
           カテゴリ:
@@ -47,7 +42,7 @@ const AddItemModal = ({ categories, isOpen, onClose, onConfirm }: Props) => {
         </label>
 
         <label>
-          賞味期限:
+          消費期限:
           <input
             type="date"
             value={expirationDate}
@@ -56,7 +51,7 @@ const AddItemModal = ({ categories, isOpen, onClose, onConfirm }: Props) => {
         </label>
 
         <div className="modal-actions">
-          <button onClick={handleConfirm}>追加</button>
+          <button onClick={onClickAddModal}>追加</button>
           <button onClick={onClose}>キャンセル</button>
         </div>
       </div>
