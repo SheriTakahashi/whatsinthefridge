@@ -12,7 +12,8 @@ import {
   faPizzaSlice,
   faAppleWhole,
 } from "@fortawesome/free-solid-svg-icons";
-import "./ExpirationArea.css";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import "./ExpirationArea.css"; // ← 専用CSSを使用
 
 type Item = { id: number; categoryId: string; expiration: string };
 
@@ -23,7 +24,7 @@ type Props = {
 };
 
 // アイコンマップ
-const iconMap: Record<string, any> = {
+const iconMap: Record<string, IconDefinition> = {
   carrot: faCarrot,
   "drumstick-bite": faDrumstickBite,
   fish: faFish,
