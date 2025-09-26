@@ -1,23 +1,45 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./AddItemModal.css";
 
+type Item = { id: number; categoryId: string; expiration: string };
+
 type Props = {
-  categories: string[];
+  categories: { id: string; name: string }[];
   isOpen: boolean;
   onClose: () => void;
-  onAdd: (name: string, expiration: string) => void;
+  onAdd: (categoryId: string, expiration: string) => void;
+  editingItem: Item | null;
 };
 
-const AddItemModal = ({ categories, isOpen, onClose, onAdd }: Props) => {
-  const [selectedCategory, setSelectedCategory] = useState("野菜");
+const AddItemModal = ({
+  categories,
+  isOpen,
+  onClose,
+  onAdd,
+  editingItem,
+}: Props) => {
+  const [selectedCategory, setSelectedCategory] = useState("vegetable");
   const [expirationDate, setExpirationDate] = useState("");
 
-  //＋ボタンと編集ボタンを押したかの判断
-  const onClickAddModal = () => {
-    if (!expirationDate) return; //日付が空白なら追加できない
+  // モーダルが開いたときに初期化 or 編集対象の値をセット
+  useEffect(() => {
+    if (!isOpen) return;
+
+    if (editingItem) {
+      // 編集モードなら既存の値をセット
+      setSelectedCategory(editingItem.categoryId);
+      setExpirationDate(editingItem.expiration);
+    } else {
+      // 新規追加モードなら初期化
+      setSelectedCategory("vegetable");
+      setExpirationDate("");
+    }
+  }, [isOpen, editingItem]);
+
+  const handleConfirm = () => {
+    if (!expirationDate) return; // 日付が空なら保存しない
     onAdd(selectedCategory, expirationDate);
-    setSelectedCategory("野菜");
-    setExpirationDate("");
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -25,7 +47,8 @@ const AddItemModal = ({ categories, isOpen, onClose, onAdd }: Props) => {
   return (
     <div className="modal">
       <div className="modal-content">
-        <h1>食材を追加</h1>
+        {/* モーダルのタイトル切り替え */}
+        <h1>{editingItem ? "食材を編集" : "食材を追加"}</h1>
 
         <label>
           カテゴリ:
@@ -34,8 +57,8 @@ const AddItemModal = ({ categories, isOpen, onClose, onAdd }: Props) => {
             onChange={(e) => setSelectedCategory(e.target.value)}
           >
             {categories.map((c) => (
-              <option key={c} value={c}>
-                {c}
+              <option key={c.id} value={c.id}>
+                {c.name}
               </option>
             ))}
           </select>
@@ -51,7 +74,10 @@ const AddItemModal = ({ categories, isOpen, onClose, onAdd }: Props) => {
         </label>
 
         <div className="modal-actions">
-          <button onClick={onClickAddModal}>追加</button>
+          {/* ボタンラベル切り替え */}
+          <button onClick={handleConfirm}>
+            {editingItem ? "更新" : "追加"}
+          </button>
           <button onClick={onClose}>キャンセル</button>
         </div>
       </div>

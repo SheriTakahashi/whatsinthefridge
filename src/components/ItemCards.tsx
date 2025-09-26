@@ -1,15 +1,39 @@
 import React from "react";
 import AddButton from "./AddButton";
 import ItemCardEdit from "./ItemCardEdit";
+import categories from "../data/categories.json";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCarrot,
+  faDrumstickBite,
+  faFish,
+  faEgg,
+  faWineBottle,
+  faIceCream,
+  faPizzaSlice,
+  faAppleWhole,
+} from "@fortawesome/free-solid-svg-icons";
 import "./ItemCards.css";
 
-type Item = { name: string; expiration: string };
+type Item = { id: number; categoryId: string; expiration: string };
 
 type Props = {
   items: Item[];
   onClickAdd: () => void;
-  onClickDeleteItem: (index: number) => void;
-  onClickEditItem: (index: number) => void;
+  onClickDeleteItem: (id: number) => void;
+  onClickEditItem: (id: number) => void;
+};
+
+// アイコンマップ
+const iconMap: Record<string, any> = {
+  carrot: faCarrot,
+  "drumstick-bite": faDrumstickBite,
+  fish: faFish,
+  egg: faEgg,
+  "wine-bottle": faWineBottle,
+  "ice-cream": faIceCream,
+  "pizza-slice": faPizzaSlice,
+  "apple-whole": faAppleWhole,
 };
 
 const ItemCards = ({
@@ -18,25 +42,33 @@ const ItemCards = ({
   onClickDeleteItem,
   onClickEditItem,
 }: Props) => {
+  const getIcon = (categoryId: string) => {
+    const category = categories.find((c) => c.id === categoryId);
+    if (category && iconMap[category.icon]) {
+      return (
+        <FontAwesomeIcon icon={iconMap[category.icon]} className="food-icon" />
+      );
+    }
+    return <span>❓</span>;
+  };
+
   return (
     <div>
       <h1>冷蔵庫</h1>
       <div className="itemCard">
-        {items.map((item, i) => (
-          <div key={`item-${i}`} className="item-container">
-            <span className="icon">🥕</span>
-            <p className="name">{item.name}</p>
+        {items.map((item) => (
+          <div key={`item-${item.id}`} className="item-container">
+            <span className="icon">{getIcon(item.categoryId)}</span>
+            <p className="name">
+              {categories.find((c) => c.id === item.categoryId)?.name || "不明"}
+            </p>
             <p className="expirationDate">{item.expiration}</p>
-
-            {/* hoverで表示する編集・削除ボタン */}
             <ItemCardEdit
-              onClickEdit={() => onClickEditItem(i)}
-              onClickDelete={() => onClickDeleteItem(i)}
+              onClickEdit={() => onClickEditItem(item.id)}
+              onClickDelete={() => onClickDeleteItem(item.id)}
             />
           </div>
         ))}
-
-        {/* +ボタン */}
         <AddButton onClickAdd={onClickAdd} />
       </div>
     </div>

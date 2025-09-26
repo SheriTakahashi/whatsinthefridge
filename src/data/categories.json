@@ -1,0 +1,10 @@
+[
+  { "id": "vegetable", "name": "野菜", "icon": "carrot" },
+  { "id": "meat", "name": "肉", "icon": "drumstick-bite" },
+  { "id": "fish", "name": "魚", "icon": "fish" },
+  { "id": "fruit", "name": "フルーツ", "icon": "apple-whole" },
+  { "id": "dairy", "name": "乳製品", "icon": "egg" },
+  { "id": "drink", "name": "飲み物", "icon": "wine-bottle" },
+  { "id": "sweets", "name": "スイーツ", "icon": "ice-cream" },
+  { "id": "deli", "name": "お惣菜", "icon": "pizza-slice" }
+]

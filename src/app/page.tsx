@@ -7,71 +7,63 @@ import ExpirationArea from "../components/ExpirationArea";
 import Recipe from "../components/Recipe";
 import ShoppingList from "../components/ShoppingList";
 import AddItemModal from "../components/AddItemModal";
+import categories from "../data/categories.json";
+
+type Item = { id: number; categoryId: string; expiration: string };
 
 export default function Page() {
-  const [items, setItems] = useState<{ name: string; expiration: string }[]>(
-    []
-  );
+  const [items, setItems] = useState<Item[]>([]);
   const [shopping, setShopping] = useState<string[]>([]);
   const [newText, setNewText] = useState("");
 
-  //====冷蔵庫内====
-  //モーダル管理
+  // ==== モーダル管理 ====
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [editingIndex, setEditingIndex] = useState<number | null>(null);
+  const [editingId, setEditingId] = useState<number | null>(null);
 
-  const categories = [
-    "野菜",
-    "肉",
-    "魚",
-    "乳製品",
-    "飲み物",
-    "スイーツ",
-    "お惣菜",
-  ];
+  // 残り日数を計算
+  const getDaysLeft = (expiration: string) => {
+    const today = new Date();
+    const exp = new Date(expiration);
+    const diffTime = exp.getTime() - today.getTime();
+    return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  };
 
-  //＋ボタン押下でモーダルが開く
+  // モーダルを開く（追加）
   const onClickOpenModal = () => {
-    setEditingIndex(null); // 新規追加なので編集対象なし
+    setEditingId(null);
     setIsModalOpen(true);
   };
 
-  //編集ボタン押下でモーダルが開く
-  const onClickEditItem = (index: number) => {
-    setEditingIndex(index);
+  // 編集ボタン
+  const onClickEditItem = (id: number) => {
+    setEditingId(id);
     setIsModalOpen(true);
   };
 
-  // モーダルの「追加 / 更新」確定処理
-  const onClickConfirmModal = (name: string, expiration: string) => {
-    if (editingIndex !== null) {
-      // 更新ボタン押下で既存カードを更新
-      const updated = [...items];
-      updated[editingIndex] = { name, expiration };
-      setItems(updated);
+  // モーダルの確定処理（追加 or 編集）
+  const onClickConfirmModal = (categoryId: string, expiration: string) => {
+    if (editingId !== null) {
+      // 編集モードだったら該当アイテムを更新
+      setItems(
+        items.map((item) =>
+          item.id === editingId ? { ...item, categoryId, expiration } : item
+        )
+      );
     } else {
-      // 追加ボタン押下で新しいカードを追加
-      setItems([...items, { name, expiration }]);
+      // 新規モードだったら新しいアイテムを追加
+      setItems([...items, { id: Date.now(), categoryId, expiration }]);
     }
+
     setIsModalOpen(false);
-    setEditingIndex(null);
+    setEditingId(null);
   };
 
-  // xボタンで庫内の食材削除
-  const onClickDeleteItem = (index: number) => {
-    const updated = [...items];
-    updated.splice(index, 1);
-    setItems(updated);
+  // 削除ボタン
+  const onClickDeleteItem = (id: number) => {
+    setItems(items.filter((item) => item.id !== id));
   };
 
-  //====消費期限リスト====
-  const onClickDeleteExpiration = (index: number) => {
-    const itemCard = [...items];
-    itemCard.splice(index, 1);
-    setItems(itemCard);
-  };
-
-  // ====買い物リスト====
+  // ==== 買い物リスト ====
   const onChangeNewText = (event: React.ChangeEvent<HTMLInputElement>) =>
     setNewText(event.target.value);
 
@@ -87,26 +79,47 @@ export default function Page() {
     setShopping(updated);
   };
 
+  // 残り2日で消費期限間近エリアへ
+  const nearExpirationItems = items.filter(
+    (item) => getDaysLeft(item.expiration) <= 2
+  );
+  const normalItems = items.filter((item) => getDaysLeft(item.expiration) > 2);
+
+  // 編集対象アイテム
+  const editingItem =
+    editingId !== null ? items.find((i) => i.id === editingId) || null : null;
+
   return (
     <div className="flex flex-col items-center">
       <Header />
+
+      {/* 冷蔵庫エリア */}
       <ItemCards
-        items={items}
+        items={normalItems}
         onClickAdd={onClickOpenModal}
         onClickDeleteItem={onClickDeleteItem}
         onClickEditItem={onClickEditItem}
       />
+
+      {/* モーダル */}
       <AddItemModal
         categories={categories}
         isOpen={isModalOpen}
         onClose={() => {
           setIsModalOpen(false);
-          setEditingIndex(null);
+          setEditingId(null);
         }}
         onAdd={onClickConfirmModal}
-        editingItem={editingIndex !== null ? items[editingIndex] : null}
+        editingItem={editingItem}
       />
-      <ExpirationArea />
+
+      {/* 消費期限間近エリア */}
+      <ExpirationArea
+        items={nearExpirationItems}
+        onClickDeleteItem={onClickDeleteItem}
+        onClickEditItem={onClickEditItem}
+      />
+
       <Recipe />
       <ShoppingList
         shopping={shopping}
