@@ -3,13 +3,21 @@ import "./ShoppingList.css";
 import InputShopping from "./InputShopping";
 import DeleteButton from "./DeleteButton";
 
+type Props = {
+  shopping: string[];
+  newText: string;
+  onChangeNewText: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClickAddShopping: () => void;
+  onClickDeleteShopping: (index: number) => void;
+};
+
 const ShoppingList = ({
   shopping,
   newText,
   onChangeNewText,
   onClickAddShopping,
   onClickDeleteShopping,
-}) => {
+}: Props) => {
   return (
     <div>
       <h1 className="shopping">買い物リスト</h1>
