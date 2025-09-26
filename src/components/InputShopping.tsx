@@ -1,10 +1,21 @@
 import React from "react";
 import "./InputShopping.css";
 
-const InputShopping = ({ newText, onChange, onClick, disabled }) => {
+type Props = {
+  newText: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onClick: () => void;
+  disabled?: boolean;
+};
+
+const InputShopping = ({
+  newText,
+  onChange,
+  onClick,
+  disabled = false,
+}: Props) => {
   return (
     <div className="input-area">
-      {/*disabledは特定の条件で制御できる*/}
       <input
         disabled={disabled}
         placeholder="買う食材を入力"

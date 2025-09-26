@@ -1,7 +1,11 @@
 import React from "react";
 import "./AddButton.css";
 
-const AddButton = ({ onClickAdd }) => {
+type Props = {
+  onClickAdd: () => void;
+};
+
+const AddButton = ({ onClickAdd }: Props) => {
   return (
     <div>
       <button className="add-button" onClick={onClickAdd}>

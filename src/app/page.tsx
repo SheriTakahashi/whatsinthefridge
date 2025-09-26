@@ -127,7 +127,6 @@ export default function Page() {
         onChangeNewText={onChangeNewText}
         onClickAddShopping={onClickAddShopping}
         onClickDeleteShopping={onClickDeleteShopping}
-        disabled={newText === ""}
       />
     </div>
   );
