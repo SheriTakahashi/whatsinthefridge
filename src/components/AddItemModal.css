@@ -30,3 +30,17 @@
   gap: 8px;
   justify-content: flex-end;
 }
+
+.cancel-button:hover {
+  color: #4169e1;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: transparent; /* 常に透明 */
+}
+
+.choose-button:hover {
+  color: #4169e1;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: transparent; /* 常に透明 */
+}

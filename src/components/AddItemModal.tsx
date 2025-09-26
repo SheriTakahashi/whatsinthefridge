@@ -75,10 +75,12 @@ const AddItemModal = ({
 
         <div className="modal-actions">
           {/* ボタンラベル切り替え */}
-          <button onClick={handleConfirm}>
+          <button className="choose-button" onClick={handleConfirm}>
             {editingItem ? "更新" : "追加"}
           </button>
-          <button onClick={onClose}>キャンセル</button>
+          <button className="cancel-button" onClick={onClose}>
+            キャンセル
+          </button>
         </div>
       </div>
     </div>

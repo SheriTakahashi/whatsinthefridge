@@ -28,4 +28,5 @@
 .shopping-list {
   flex: 1; /*伸び縮みして残りのスペースを埋める*/
   word-break: break-word; /* 長い文字でも折り返し */
+  margin-top: 10px;
 }

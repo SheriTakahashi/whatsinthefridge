@@ -9,3 +9,17 @@
   outline: none;
   border-color: #4169e1;
 }
+
+.shopping-add {
+  margin-right: 50px;
+  padding: 10px;
+  border-radius: 10px;
+  background-color: #1e90ff;
+  color: white;
+}
+
+.shopping-add:hover:not(:disabled) {
+  background-color: #87cefa;
+  color: white;
+  cursor: pointer;
+}

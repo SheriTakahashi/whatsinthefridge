@@ -2,12 +2,19 @@
 .edit-container {
   display: none;
   position: absolute;
-  top: 8px;
+  top: 5px;
   gap: 6px;
   background-color: #bcddff;
   color: #4169e1;
   width: 90%;
   padding: 32px 6px 8px 3px;
+}
+
+.edit-button:hover {
+  color: #4169e1;
+  cursor: pointer;
+  font-weight: bold;
+  background-color: transparent; /* 常に透明 */
 }
 
 /* hoverしたら表示 */
