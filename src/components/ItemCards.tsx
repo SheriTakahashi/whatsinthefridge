@@ -56,7 +56,8 @@ const ItemCards = ({
   return (
     <div>
       <h1>冷蔵庫</h1>
-      <div className="itemCard">
+      {/*スマホは１列・ミニタブレット3列・タブレットで4列・PCで5列*/}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {items.map((item) => (
           <div key={`item-${item.id}`} className="item-container">
             <span className="icon">{getIcon(item.categoryId)}</span>

@@ -1,8 +1,17 @@
+.input-area {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
 .input-area input {
+  flex: 1; /* 横幅を調整 */
   border: 1px solid #d1d5db;
   border-radius: 6px;
   padding: 8px 12px;
-  margin-right: 30px;
+  font-size: 14px;
+  min-width: 0;
 }
 
 .input-area input:focus {
@@ -11,15 +20,34 @@
 }
 
 .shopping-add {
-  margin-right: 50px;
-  padding: 10px;
+  flex-shrink: 0; /* ボタンは縮まない */
+  padding: 10px 16px;
   border-radius: 10px;
   background-color: #1e90ff;
   color: white;
+  font-size: 14px;
+  cursor: pointer;
 }
 
 .shopping-add:hover:not(:disabled) {
+  /*ボタンが有効な時に限り、ホバーすると背景色を水色に変える*/
   background-color: #87cefa;
-  color: white;
-  cursor: pointer;
+}
+
+/*モバイル用 */
+@media (max-width: 640px) {
+  .input-area {
+    gap: 8px;
+  }
+
+  .input-area input {
+    font-size: 13px;
+    padding: 6px 10px;
+  }
+
+  .shopping-add {
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 8px;
+  }
 }

@@ -37,22 +37,23 @@ const Recipe = () => {
   return (
     <div className="recipe-container">
       <h1 className="recommend">おすすめのレシピ</h1>
-      <ul className="flex gap-4 overflow-x-auto">
+      {/*スマホは１列・ミニタブレット２列・タブレットで３列・PCで４列*/}
+      <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {recipes.map((r) => (
           <li
             key={r.recipeId}
-            className="min-w-[200px]  rounded-lg p-2 bg-white"
+            className="bg-white rounded-lg p-2 shadow hover:shadow-md transition"
           >
             <a
               href={r.recipeUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="block focus:outline-none focus:ring-2 focus:ring-blue-500 rounded cursor-pointer"
+              className="block"
             >
               <img
                 src={r.foodImageUrl}
                 alt={r.recipeTitle}
-                className="w-full h-32 object-cover rounded"
+                className="w-full h-40 object-cover rounded"
               />
               <p className="mt-2 text-sm font-bold">{r.recipeTitle}</p>
             </a>

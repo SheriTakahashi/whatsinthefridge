@@ -13,7 +13,7 @@ import {
   faAppleWhole,
 } from "@fortawesome/free-solid-svg-icons";
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
-import "./ExpirationArea.css"; // ← 専用CSSを使用
+import "./ExpirationArea.css";
 
 type Item = { id: number; categoryId: string; expiration: string };
 
@@ -53,7 +53,8 @@ const ExpirationArea = ({
   return (
     <div className="expiration-area">
       <h1 className="alert">消費期限間近</h1>
-      <div className="itemCard">
+      {/*スマホは１列・ミニタブレット2列・タブレットで4列・PCで5列*/}
+      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
         {items.map((item) => (
           <div key={`exp-${item.id}`} className="item-container">
             <span className="icon">{getIcon(item.categoryId)}</span>

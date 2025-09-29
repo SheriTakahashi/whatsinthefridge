@@ -1,14 +1,21 @@
 .expiration-area {
   border: none;
-  width: 666px;
+  width: 70%;
+  max-width: 677px;
   height: auto;
   padding: 8px;
-  margin: 8px;
+  margin: 8px auto; /* 中央寄せ */
   border-radius: 8px;
   background-color: #ffc0cb;
 }
 
-.expiration-list {
-  flex: 1; /*伸び縮みして残りのスペースを埋める*/
-  word-break: break-word; /* 長い文字でも折り返し */
+.itemCard {
+  display: flex;
+  flex-wrap: wrap; /* 画面サイズに合わせて複数行に折り返し */
+  justify-content: flex-start; /* 左寄せ */
+}
+
+.item-container {
+  width: 120px; /*カードの横幅を固定 */
+  flex: 0 0 auto; /* 伸縮防止 */
 }

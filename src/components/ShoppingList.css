@@ -4,15 +4,22 @@
   align-items: center;
   flex-direction: column;
   background-color: white;
-  width: 530px;
+  width: 500px;
   height: auto;
   border-radius: 10px;
-  margin-bottom: 100px;
+  margin: 0 auto 100px;
+}
+
+.shopping {
+  max-width: 500px;
+  margin: 0 auto;
+  padding-left: 15px;
+  font-weight: bold;
+  font-size: 18px;
 }
 
 .shopping-inner {
-  max-width: 700px;
-  margin: 0 auto;
+  width: 100%;
   padding: 12px 20px;
   display: flex;
   flex-direction: column;
@@ -26,7 +33,23 @@
 }
 
 .shopping-list {
-  flex: 1; /*伸び縮みして残りのスペースを埋める*/
-  word-break: break-word; /* 長い文字でも折り返し */
+  flex: 1;
+  word-break: break-word;
   margin-top: 10px;
+  font-size: 14px;
+}
+
+/* タブレット以上で文字サイズを戻す */
+@media (min-width: 640px) {
+  .shopping-list {
+    font-size: 16px;
+  }
+}
+
+/* タブレット以下は幅縮む */
+@media (max-width: 639px) {
+  .shopping-container {
+    width: 90%;
+    max-width: 500px;
+  }
 }
